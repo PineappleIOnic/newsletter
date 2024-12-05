@@ -1,18 +1,31 @@
 <script>
+    import { createAppwriteBucketURL } from "$lib/appwrite-public";
+
+    /**
+     * @typedef {Object} Testimonial
+     * @property {string} name - Name of the person providing the testimonial.
+     * @property {string} handle - Handle or username.
+     * @property {string} avatar - URL of the person's avatar.
+     * @property {string} quote - Testimonial quote.
+     */
+
+    /** @type {Testimonial[]} */
     const testimonials = [
         {
-            'name': "Walter o'Brien",
-            'handle': "@walterobrien",
-            'quote': "Lorem ipsum dolor sit amet consectetur. Mauris eu sit gravida dignissim semper euismod. Imperdiet eget rhoncus eget purus.",
-            'avatar': "walter.png"
+            name: "Walter o'Brien",
+            handle: "@walterobrien",
+            avatar: createAppwriteBucketURL("walter"),
+            quote:
+                "Lorem ipsum dolor sit amet consectetur. Mauris eu sit gravida dignissim semper euismod. Imperdiet eget rhoncus eget purus.",
         },
         {
-            'name': "Walter o'Brien",
-            'handle': "@walterobrien",
-            'quote': "Lorem ipsum dolor sit amet consectetur. Mauris eu sit gravida dignissim semper euismod. Imperdiet eget rhoncus eget purus.",
-            'avatar': "walter.png"
+            name: "Walter o'Brien",
+            handle: "@walterobrien",
+            avatar: createAppwriteBucketURL("walter"),
+            quote:
+                "Lorem ipsum dolor sit amet consectetur. Mauris eu sit gravida dignissim semper euismod. Imperdiet eget rhoncus eget purus.",
         },
-    ]
+    ];
 </script>
 
 <section class="flex justify-center w-full">
@@ -23,7 +36,7 @@
             {#each testimonials as testimonial}
                 <div class="grow p-5 border-dashed border-neutral-800">
                     <div class="flex items-center pb-5 font-light">
-                        <img src={`avatars/${testimonial.avatar}`} alt={testimonial.name} class="w-12 h-12 rounded-full object-cover"/>
+                        <img src={testimonial.avatar} alt={testimonial.name} class="w-12 h-12 rounded-full object-cover"/>
                         <div class="text-neutral-secondary pl-3">
                             <p>{testimonial.name}</p>
                             <p>{testimonial.handle}</p>

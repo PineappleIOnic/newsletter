@@ -1,26 +1,45 @@
 <script>
-	const topics = [
+    import { CircleStack, CubeTransparent, LockClosed, Sparkles } from '@steeze-ui/heroicons';
+    import { Icon } from '@steeze-ui/svelte-icon';
+
+	/**
+	 * @typedef {import("@steeze-ui/heroicons").IconSource} IconSource
+	 */
+
+	/**
+	 * @typedef {Object} Topic
+	 * @property {string} title - Title of the topic.
+	 * @property {IconSource} icon - Icon component for the topic.
+	 * @property {string} description - Description of the topic.
+	 */
+
+	/** @type {Topic[]} */
+	export const topics = [
 		{
 			title: "Security",
-			icon: "lock-closed",
-			description: "Lorem ipsum dolor sit amet consectetur. Mauris eu sit gravida."
+			icon: LockClosed,
+			description:
+				"Lorem ipsum dolor sit amet consectetur. Mauris eu sit gravida.",
 		},
 		{
 			title: "Artificial Intelligence",
-			icon: "sparkles",
-			description: "Lorem ipsum dolor sit amet consectetur. Mauris eu sit gravida."
+			icon: Sparkles,
+			description:
+				"Lorem ipsum dolor sit amet consectetur. Mauris eu sit gravida.",
 		},
 		{
 			title: "Databases",
-			icon: "database",
-			description: "Lorem ipsum dolor sit amet consectetur. Mauris eu sit gravida."
+			icon: CircleStack,
+			description:
+				"Lorem ipsum dolor sit amet consectetur. Mauris eu sit gravida.",
 		},
 		{
 			title: "Frameworks",
-			icon: "cube-transparent",
-			description: "Lorem ipsum dolor sit amet consectetur. Mauris eu sit gravida."
+			icon: CubeTransparent,
+			description:
+				"Lorem ipsum dolor sit amet consectetur. Mauris eu sit gravida.",
 		},
-	]
+	];
 </script>
 
 <section class="flex justify-center w-full">
@@ -33,7 +52,7 @@
         <div class="flex w-full border-dashed border-y-2 divide-x border-neutral-800">
             {#each topics as topic}
                 <div class="grow p-5 border-dashed border-neutral-800">
-					<object title={topic.title} type="image/svg+xml" data={`icons/${topic.icon}.svg`} class="w-7 h-7 mb-5"></object>
+					<Icon src="{topic.icon}" class="text-white size-7 mb-5" />
                     <p>{topic.title}</p>
                     <p class="text-neutral-secondary font-light pr-5">{topic.description}</p>
                 </div>

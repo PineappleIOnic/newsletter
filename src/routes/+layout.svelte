@@ -7,10 +7,10 @@
 	let { children } = $props();
 </script>
 
-<div class="app">
+<div class="app relative min-h-screen">
 	<Header />
 
-	<main>
+	<main class="pb-20">
 		{@render children()}
 	</main>
 
