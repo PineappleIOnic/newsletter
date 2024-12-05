@@ -10,5 +10,7 @@
 
 <div class="h-32 w-full text-center">
     <h1 class="text-3xl">{$page.status}</h1>
-    <h1 class="text-3xl">{$page.error.message}</h1>
+    {#if $page.error}
+        <p class="text-neutral-secondary">{$page.error.message}</p>
+    {/if}
 </div>

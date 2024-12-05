@@ -78,12 +78,13 @@
     }
     .footer a {
       text-decoration: underline;
+      color: #777;
     }
     .footer a:hover {
       text-decoration: underline;
     }
     .social-icons {
-      margin: 10px 0;
+      margin-right: 5px;
     }
     .social-icons img {
       width: 30px;
@@ -107,7 +108,7 @@
       <p>
         Thank you for subscribing to <strong><%= newsletter %></strong>! We're thrilled to have you on board. To confirm your subscription please click the buttom below:
       </p>
-      <button href="<&= confirmationUrl &>">Confirm Subscription</button>
+      <a href="<%= redirectUrl %>" style="border-radius: 5px;border: 1px solid #D8D8DB;background: white;color: #97979B;padding: 5px;">Confirm Subscription</a>
       <div class="signature">
         <img src="<%= author.avatar %>" alt="Logo">
         <p><strong><%= author.name %></strong><br><%= author.position %></p>

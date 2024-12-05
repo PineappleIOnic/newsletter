@@ -1,4 +1,5 @@
 import {
+    Account,
     AppwriteException,
     Client,
     Databases,
@@ -50,15 +51,15 @@ export async function createSubscription(email) {
     } catch (err) {
         if (err instanceof AppwriteException) {
             if (err.code === 409) {
-                user =
-                    (await auth.list([Query.equal("email", [email])])).users[0];
+                user = (await auth.list([Query.equal("email", [email])])).users[0];
             } else {
                 console.error("Error creating user", err);
                 return error(500, "Error creating user");
             }
+        } else {
+            console.error("Error creating user", err);
+            return error(500, "Error creating user");
         }
-        console.error("Error creating user", err);
-        return error(500, "Error creating user");
     }
 
     const template = fs.readFileSync(
@@ -68,13 +69,15 @@ export async function createSubscription(email) {
 
     const code = await createVerificationCode(user.$id);
 
-    const html = ejs.render(template, {
+    const html = /** @type {string} */  (ejs.render(template, {
         newsletter: config.newsletterName,
         newsletterIcon: newsletterIcon,
         author: config.creator,
         socials: config.socials,
-        redirectUrl: `${PUBLIC_APP_DOMAIN}/confirm?userId=${user.$id}&code=${code}`,
-    });
+        redirectUrl: `${PUBLIC_APP_DOMAIN}/confirm?code=${code}`,
+    }, {
+        async: false
+    }));
 
     try {
         console.log("Sending email to", email);
@@ -104,14 +107,12 @@ export async function createVerificationCode(userId) {
     const client = getAppwriteClient();
     const database = new Databases(client);
 
-    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-
     // Check for existing codes:
     try {
         let existingCodes = await database.listDocuments(
             "newsletter",
             "verification",
-            [Query.equal("user", userId)],
+            [Query.equal("userId", userId)],
         );
 
         if (existingCodes.documents.length > 0) {
@@ -138,21 +139,59 @@ export async function createVerificationCode(userId) {
     }
 
     try {
-        await database.createDocument(
+        let document = await database.createDocument(
             "newsletter",
             "verification",
             ID.unique(),
             {
-                code: code,
-                user: userId,
+                userId
             },
         );
+
+        return document.$id;
     } catch (err) {
         console.error("Error creating verification code", err);
         return error(500, "Error creating verification code");
     }
+}
 
-    return code;
+/**
+ * @param {string} code 
+ * @returns {Promise<boolean>}
+ */
+export async function verifyCode(code) {
+    const client = getAppwriteClient();
+    const database = new Databases(client);
+    const users = new Users(client);
+
+    try {
+        let verifyDoc = await database.getDocument(
+            "newsletter",
+            "verification",
+            code
+        );
+
+        await users.updateEmailVerification(verifyDoc.userId, true);
+
+        await database.deleteDocument(
+            "newsletter",
+            "verification",
+            verifyDoc.$id
+        )
+
+        return true;
+    } catch (err) {
+        if (err instanceof AppwriteException) {
+            if (err.code === 404) {
+                return false;
+            } else {
+                console.error("Error verifying code", err);
+                return error(500, "Error verifying code");
+            }
+        }
+    }
+
+    return false;
 }
 
 /**
@@ -168,26 +207,23 @@ async function createVerificationCollection(databaseId) {
         "Email Verification",
     );
 
-    database.createStringAttribute(
+    await database.createStringAttribute(
         databaseId,
         collection.$id,
-        "code",
+        "userId",
         256,
         true,
     );
-    database.createStringAttribute(
-        databaseId,
-        collection.$id,
-        "user",
-        256,
-        true,
-    );
-    database.createIndex(
+    
+    // Await for the attributes to be created
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    await database.createIndex(
         databaseId,
         collection.$id,
         "userId",
         IndexType.Unique,
-        ["user"],
+        ["userId"],
     );
 
     return collection;

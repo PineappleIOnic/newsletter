@@ -1,4 +1,4 @@
-import { createSubscription } from '$lib/appwrite';
+import { createSubscription } from '$lib/server/appwrite';
 import { fail } from '@sveltejs/kit';
 
 /** @satisfies {import('./$types').Actions} */
