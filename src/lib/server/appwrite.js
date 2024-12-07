@@ -18,12 +18,20 @@ import path from "path";
 import { fileURLToPath } from "url";
 import {
     PUBLIC_APP_DOMAIN,
+    PUBLIC_APPWRITE_CDN_BUCKET,
     PUBLIC_APPWRITE_ENDPOINT,
     PUBLIC_APPWRITE_PROJECT_ID,
 } from "$env/static/public";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+/**
+ * @typedef {import('node-appwrite').Models.Preferences} Preferences
+ * @typedef {import('node-appwrite').Models.User<Preferences>} User
+ * @typedef {import('node-appwrite').Models.Session} Session
+ * @typedef {import('node-appwrite').Models.Collection} Collection
+ */
 
 export function getAppwriteClient() {
     let client = new Client();
@@ -32,6 +40,22 @@ export function getAppwriteClient() {
         .setEndpoint(PUBLIC_APPWRITE_ENDPOINT)
         .setProject(PUBLIC_APPWRITE_PROJECT_ID)
         .setKey(APPWRITE_API_KEY);
+
+    return client;
+}
+
+/**
+ * 
+ * @param {string} seesionId 
+ * @returns 
+ */
+export function getSessionClient(seesionId) {
+    let client = new Client();
+
+    client
+        .setEndpoint(PUBLIC_APPWRITE_ENDPOINT)
+        .setProject(PUBLIC_APPWRITE_PROJECT_ID)
+        .setSession(seesionId);
 
     return client;
 }
@@ -196,6 +220,7 @@ export async function verifyCode(code) {
 
 /**
  * @param {string} databaseId
+ * @returns {Promise<Collection>}
  */
 async function createVerificationCollection(databaseId) {
     const client = getAppwriteClient();
@@ -230,10 +255,68 @@ async function createVerificationCollection(databaseId) {
 }
 
 /**
+ * 
+ * @param {string} email 
+ * @param {string} password 
+ * @returns {Promise<import('node-appwrite').Models.Session>}
+ */
+export async function createSession(email, password) {
+    const client = getAppwriteClient();
+    const account = new Account(client);
+
+    return await account.createEmailPasswordSession(email, password);
+}
+
+/**
+ * Get's current account session, retrieves account data if session is active.
+ * 
+ * @param {string} sessionId
+ * @returns {Promise<User | null>}
+ */
+export async function getAccount(sessionId) {
+    const account = new Account(getSessionClient(sessionId));
+
+    try {
+        return await account.get();
+    } catch (err) {
+        if (err instanceof AppwriteException) {
+            console.log(err);
+            if (err.code === 401) {
+                return null;
+            }
+        }
+
+        throw err;
+    }
+}
+
+/**
  * Generate a URL for accessing a file in an Appwrite bucket.
  * @param {string} id - The ID of the file in the bucket.
  * @returns {string} The complete URL to access the file.
  */
 export function createAppwriteBucketURL(id) {
-    return `${PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/cdn/files/${id}/view?project=${PUBLIC_APPWRITE_PROJECT_ID}`;
+    return `${PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${PUBLIC_APPWRITE_CDN_BUCKET}/files/${id}/view?project=${PUBLIC_APPWRITE_PROJECT_ID}`;
+}
+
+/**
+ * Create a new account with the given email and password.
+ * 
+ * @param {string} username
+ * @param {string} password
+ */
+export async function createAccount(username, password) {
+    const accounts = new Account(getAppwriteClient());
+
+    try {
+        return await accounts.create(ID.unique(), username, password);
+    } catch (err) {
+        if (err instanceof AppwriteException) {
+            if (err.code === 409) {
+                return null;
+            }
+        }
+
+        throw err;
+    }
 }
