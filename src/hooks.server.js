@@ -1,12 +1,23 @@
+import {sequence} from '@sveltejs/kit/hooks';
+import * as Sentry from '@sentry/sveltekit';
 import { getAccount } from '$lib/server/appwrite';
 
-/** @type {import('@sveltejs/kit').Handle} */
-export async function handle({ event, resolve }) {
-    let sessionId = event.cookies.get('sessionId');
+Sentry.init({
+    dsn: "https://6bc7e232b9fc381f02e97e512a760888@o303677.ingest.us.sentry.io/4508448246792192",
+    tracesSampleRate: 1
+})
 
-    if (sessionId !== undefined) {
-        event.locals.user = await getAccount(sessionId);
-    }
+export const handleError = Sentry.handleErrorWithSentry();
 
-	return resolve(event);
-}
+export const handle = sequence(
+ Sentry.sentryHandle(),
+ async function _handle({ event, resolve }) {
+     let sessionId = event.cookies.get('sessionId');
+
+     if (sessionId !== undefined) {
+         event.locals.user = await getAccount(sessionId);
+     }
+
+     return resolve(event);
+ }
+);
