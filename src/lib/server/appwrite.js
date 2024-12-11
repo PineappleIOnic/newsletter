@@ -10,7 +10,6 @@ import {
     Users,
 } from "node-appwrite";
 import { APPWRITE_API_KEY } from "$env/static/private";
-import fs from "fs";
 import { config, newsletterIcon } from "$lib/config.js";
 import ejs from "ejs";
 import { error } from "@sveltejs/kit";
@@ -22,6 +21,7 @@ import {
     PUBLIC_APPWRITE_ENDPOINT,
     PUBLIC_APPWRITE_PROJECT_ID,
 } from "$env/static/public";
+import confirmTemplate from './templates/confirm.ejs?raw';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -86,14 +86,9 @@ export async function createSubscription(email) {
         }
     }
 
-    const template = fs.readFileSync(
-        path.resolve(__dirname, "./templates/confirm.ejs"),
-        "utf8",
-    );
-
     const code = await createVerificationCode(user.$id);
 
-    const html = /** @type {string} */  (ejs.render(template, {
+    const html = /** @type {string} */  (ejs.render(confirmTemplate, {
         newsletter: config.newsletterName,
         newsletterIcon: newsletterIcon,
         author: config.creator,
