@@ -1,6 +1,7 @@
 // src/routes/admin/+page.server.ts
 import { error, redirect } from '@sveltejs/kit';
 
+/** @type {import('./$types').PageServerLoad} */
 export const load = async ({ locals }) => {
   if (!locals.user) {
     redirect(302, '/auth');

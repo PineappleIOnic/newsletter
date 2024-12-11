@@ -280,13 +280,14 @@ export async function getAccount(sessionId) {
         return await account.get();
     } catch (err) {
         if (err instanceof AppwriteException) {
-            console.log(err);
             if (err.code === 401) {
                 return null;
             }
         }
 
-        throw err;
+        console.error("Error getting account", err);
+        return null;
+        //throw err;
     }
 }
 
@@ -300,16 +301,17 @@ export function createAppwriteBucketURL(id) {
 }
 
 /**
- * Create a new account with the given email and password.
+ * Create a new account with the given email, password and name.
  * 
- * @param {string} username
+ * @param {string} name
+ * @param {string} email
  * @param {string} password
  */
-export async function createAccount(username, password) {
+export async function createAccount(name, email, password) {
     const accounts = new Account(getAppwriteClient());
 
     try {
-        return await accounts.create(ID.unique(), username, password);
+        return await accounts.create(ID.unique(), email, password, name);
     } catch (err) {
         if (err instanceof AppwriteException) {
             if (err.code === 409) {

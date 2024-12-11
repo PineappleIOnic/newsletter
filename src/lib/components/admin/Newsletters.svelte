@@ -13,7 +13,7 @@
         <div class="flex items-center pt-4 pb-6 px-3 ">
             <p class="grow text-2xl">Newsletters</p>
             {#if newsletterPosts.length !== 0}
-                <button class="rounded-xl font-xs p-2 bg-white text-black">Create New</button>
+                <a href="/admin/create" class="rounded-xl font-xs p-2 bg-white text-black">Create New</a>
             {/if}
         </div>
 
@@ -34,7 +34,7 @@
                             <td class="p-3 text-neutral-secondary font-light">{post.views} views</td>
                             <td class="p-3 text-neutral-secondary font-light">{post.date}</td>
                             <td class="flex gap-3 flex-row-reverse p-3 text-neutral-secondary font-light">
-                                <button class="rounded font-xs px-3 bg-white text-black">Edit</button>
+                                <button class="rounded font-xs px-3 bg-white text-black">View</button>
                                 <button class="rounded font-xs px-3 bg-white text-black">Delete</button>
                             </td>
                         </tr>
@@ -45,7 +45,7 @@
             <div class="text-center border-t-2 border-dashed border-neutral-800 py-10">
                 <p class="pb-2">No newsletters yet</p>
                 <p class="text-neutral-secondary pb-5">Create your first newsletter to start building your audience</p>
-                <button class="rounded-xl font-xs p-2 bg-white text-black">Create newsletter</button>
+                <a href="/admin/create" class="rounded-xl font-xs p-2 bg-white text-black">Create newsletter</a>
             </div>
         {/if}
     </div>

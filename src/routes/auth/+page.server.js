@@ -53,9 +53,18 @@ export const actions = {
 	register: async ({ request }) => {
 		const data = await request.formData();
 
+		const name = data.get('name');
 		const email = data.get('email');
         const password = data.get('password');
 		const confirm = data.get('confirm');
+
+		if (!name) {
+			return fail(400, { name, missing: true });
+		}
+
+		if (typeof name !== 'string') {
+			return fail(400, { name, invalid: true });
+		}
 		
 		if (!email) {
 			return fail(400, { email, missing: true });
@@ -73,7 +82,7 @@ export const actions = {
 			return fail(400, { mismatch: true });
         }
 
-        await createAccount(email, password);
+        await createAccount(name, email, password);
 
 		return { email, success: true };
 	}

@@ -2,13 +2,14 @@
  * Master Configuration File
  * Change this to customise your newsletter
  */
+import { PUBLIC_APP_DOMAIN } from "$env/static/public";
 import { createAppwriteBucketURL } from "./appwrite-public.js";
 
 /** @type {string} */
 export const newsletterName = "Dev Newsletter";
 
 /** @type {string} */
-export const newsletterIcon = createAppwriteBucketURL("67511a5400215d0378e4");
+export const newsletterIcon = PUBLIC_APP_DOMAIN + "/favicon.png";
 
 /**
  * @typedef {Object} Creator
@@ -37,25 +38,25 @@ export const socials = [
     {
         name: "Github",
         icon: "github",
-        emailImage: createAppwriteBucketURL("67511a630015c2451d13"),
+        emailImage: PUBLIC_APP_DOMAIN + "/icons/email/github.png",
         url: "https://github.com/appwrite/",
     },
     {
         name: "Youtube",
         icon: "youtube",
-        emailImage: createAppwriteBucketURL("youtube"),
+        emailImage: PUBLIC_APP_DOMAIN + "/icons/email/youtube.png",
         url: "https://youtube.com/appwrite",
     },
     {
         name: "Discord",
         icon: "discord",
-        emailImage: createAppwriteBucketURL("67511a69003a6f4a09a9"),
+        emailImage: PUBLIC_APP_DOMAIN + "/icons/email/discord.png",
         url: "https://appwrite.io/discord",
     },
     {
         name: "X",
         icon: "x",
-        emailImage: createAppwriteBucketURL("67511a5e002962f2232c"),
+        emailImage: PUBLIC_APP_DOMAIN + "/icons/email/x.png",
         url: "https://x.com/appwrite",
     },
 ];
