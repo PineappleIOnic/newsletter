@@ -3,7 +3,7 @@
 </script>
 
 <footer
-	class="absolute bottom-0 h-auto w-full border-t-2 border-dashed border-neutral-800 px-5 py-5 font-light text-neutral-secondary lg:px-10"
+	class="absolute bottom-0 h-auto w-full border-t-2 border-dashed border-neutral-800 bg-[#19191d] px-5 py-5 font-light text-neutral-secondary lg:px-10"
 >
 	<div class="flex flex-col items-start justify-between md:flex-row md:items-center">
 		<div class="pb-5">
