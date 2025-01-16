@@ -7,15 +7,13 @@ import { Account, AppwriteException, Client, ID } from 'appwrite';
  * @returns {string} The complete URL to access the file.
  */
 export function createAppwriteBucketURL(id) {
-    return `${PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/cdn/files/${id}/view?project=${PUBLIC_APPWRITE_PROJECT_ID}`;
+	return `${PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/cdn/files/${id}/view?project=${PUBLIC_APPWRITE_PROJECT_ID}`;
 }
 
 export function getAppwriteClient() {
-    let client = new Client();
+	let client = new Client();
 
-    client
-        .setEndpoint(PUBLIC_APPWRITE_ENDPOINT)
-        .setProject(PUBLIC_APPWRITE_PROJECT_ID);
+	client.setEndpoint(PUBLIC_APPWRITE_ENDPOINT).setProject(PUBLIC_APPWRITE_PROJECT_ID);
 
-    return client;
+	return client;
 }

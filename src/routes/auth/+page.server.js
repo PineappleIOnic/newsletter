@@ -8,8 +8,8 @@ export const actions = {
 		const data = await request.formData();
 
 		const email = data.get('email');
-        const password = data.get('password');
-		
+		const password = data.get('password');
+
 		if (!email) {
 			return fail(400, { email, missing: true });
 		}
@@ -22,13 +22,13 @@ export const actions = {
 			return fail(400, { email, incorrect: true });
 		}
 
-        if (!password) {
-            return fail(400, { missing: true });
-        }
+		if (!password) {
+			return fail(400, { missing: true });
+		}
 
-        if (typeof password !== 'string') {
-            return fail(400, { incorrect: true });
-        }
+		if (typeof password !== 'string') {
+			return fail(400, { incorrect: true });
+		}
 
 		try {
 			const session = await createSession(email, password);
@@ -38,7 +38,7 @@ export const actions = {
 			if (url.searchParams.has('redirect')) {
 				redirect(303, url.searchParams.get('redirect') ?? '');
 			} else {
-				redirect(303, '/admin')
+				redirect(303, '/admin');
 			}
 		} catch (err) {
 			if (err instanceof AppwriteException) {
@@ -55,7 +55,7 @@ export const actions = {
 
 		const name = data.get('name');
 		const email = data.get('email');
-        const password = data.get('password');
+		const password = data.get('password');
 		const confirm = data.get('confirm');
 
 		if (!name) {
@@ -65,7 +65,7 @@ export const actions = {
 		if (typeof name !== 'string') {
 			return fail(400, { name, invalid: true });
 		}
-		
+
 		if (!email) {
 			return fail(400, { email, missing: true });
 		}
@@ -74,22 +74,22 @@ export const actions = {
 			return fail(400, { email, invalid: true });
 		}
 
-        if (!password || !confirm || typeof password !== 'string' || typeof confirm !== 'string') {
-            return fail(400, { missing: true });
-        }
+		if (!password || !confirm || typeof password !== 'string' || typeof confirm !== 'string') {
+			return fail(400, { missing: true });
+		}
 
-        if (password !== confirm) {
+		if (password !== confirm) {
 			return fail(400, { mismatch: true });
-        }
+		}
 
-        await createAccount(name, email, password);
+		await createAccount(name, email, password);
 
 		return { email, success: true };
 	}
 };
 
 export const load = async ({ locals }) => {
-  if (locals.user && locals.user.labels.indexOf('admin') === -1) {
-    redirect(302, '/admin');
-  }
+	if (locals.user && locals.user.labels.indexOf('admin') === -1) {
+		redirect(302, '/admin');
+	}
 };
