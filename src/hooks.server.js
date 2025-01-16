@@ -13,10 +13,7 @@ export const handle = sequence(Sentry.sentryHandle(), async function _handle({ e
 	let sessionId = event.cookies.get('sessionId');
 
 	if (sessionId !== undefined) {
-		event.locals.user = {
-			name: 'Admin',
-			labels: ['admin']
-		}; //await getAccount(sessionId);
+		event.locals.user = await getAccount(sessionId);
 	}
 
 	return resolve(event);
