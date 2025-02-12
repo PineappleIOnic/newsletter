@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-	<title>Your subcribed to {newsletterName}!</title>
+	<title>Your subscribed to {newsletterName}!</title>
 </svelte:head>
 
 <Header />

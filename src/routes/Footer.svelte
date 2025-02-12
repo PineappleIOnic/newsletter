@@ -48,18 +48,6 @@
 					></object>
 				</a>
 			{/each}
-			<a
-				class="relative size-8 rounded-md border border-neutral-strong transition-all duration-200 ease-in-out hover:border-neutral-500"
-				href="/admin"
-				aria-label="Admin Panel"
-			>
-				<object
-					class="pointer-events-none absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 transform transition-transform duration-200 ease-in-out hover:scale-110"
-					title="Admin Panel"
-					type="image/svg+xml"
-					data={`/icons/admin.svg`}
-				></object>
-			</a>
 		</div>
 	</div>
 </footer>
