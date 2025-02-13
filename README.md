@@ -25,7 +25,6 @@ web framework with [TypeScript](https://www.typescriptlang.org/) codebase.
 
 CSS framework [TailwindCSS](https://tailwindcss.com/) is used for all styling needs.
 
-Financial and payments infrastructure [Stripe](https://stripe.com/en-cz) to collect (not only) card payments, generate
 invoices, send receipt, calculate VAT, make reports, and much more.
 
 All the backend needs such as saving the newsletter sign-ups, or email verification is covered
