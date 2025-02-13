@@ -7,8 +7,6 @@ emails.
 
 A simple and sleek UI allowing users to sign up to your newsletters.
 
-## Highlight
-
 ## Useful links
 
 - Env setup: [.env.example](.env.example), rename to `.env`
@@ -24,8 +22,6 @@ We use [Svelte](https://svelte.dev/docs/svelte/overview) and [SvelteKit](https:/
 web framework with [TypeScript](https://www.typescriptlang.org/) codebase.
 
 CSS framework [TailwindCSS](https://tailwindcss.com/) is used for all styling needs.
-
-invoices, send receipt, calculate VAT, make reports, and much more.
 
 All the backend needs such as saving the newsletter sign-ups, or email verification is covered
 by [Appwrite](https://appwrite.io/).
