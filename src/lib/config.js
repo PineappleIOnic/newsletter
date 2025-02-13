@@ -2,14 +2,14 @@
  * Master Configuration File
  * Change this to customise your newsletter
  */
-import { PUBLIC_APP_DOMAIN } from "$env/static/public";
-import { createAppwriteBucketURL } from "./appwrite-public.js";
+import { PUBLIC_APP_DOMAIN } from '$env/static/public';
+import { createAppwriteBucketURL } from './appwrite-public.js';
 
 /** @type {string} */
-export const newsletterName = "Dev Newsletter";
+export const newsletterName = 'Dev Newsletter';
 
 /** @type {string} */
-export const newsletterIcon = PUBLIC_APP_DOMAIN + "/favicon.png";
+export const newsletterIcon = PUBLIC_APP_DOMAIN + '/favicon.png';
 
 /**
  * @typedef {Object} Creator
@@ -20,9 +20,9 @@ export const newsletterIcon = PUBLIC_APP_DOMAIN + "/favicon.png";
 
 /** @type {Creator} */
 export const creator = {
-    name: "Walter o'Brien",
-    avatar: createAppwriteBucketURL("walter"),
-    position: "Founder, Dev Newsletter",
+	name: "Walter o'Brien",
+	avatar: createAppwriteBucketURL('walter'),
+	position: 'Founder, Dev Newsletter'
 };
 
 /**
@@ -35,30 +35,30 @@ export const creator = {
 
 /** @type {Social[]} */
 export const socials = [
-    {
-        name: "Github",
-        icon: "github",
-        emailImage: PUBLIC_APP_DOMAIN + "/icons/email/github.png",
-        url: "https://github.com/appwrite/",
-    },
-    {
-        name: "Youtube",
-        icon: "youtube",
-        emailImage: PUBLIC_APP_DOMAIN + "/icons/email/youtube.png",
-        url: "https://youtube.com/appwrite",
-    },
-    {
-        name: "Discord",
-        icon: "discord",
-        emailImage: PUBLIC_APP_DOMAIN + "/icons/email/discord.png",
-        url: "https://appwrite.io/discord",
-    },
-    {
-        name: "X",
-        icon: "x",
-        emailImage: PUBLIC_APP_DOMAIN + "/icons/email/x.png",
-        url: "https://x.com/appwrite",
-    },
+	{
+		name: 'Github',
+		icon: 'github',
+		emailImage: PUBLIC_APP_DOMAIN + '/icons/email/github.png',
+		url: 'https://github.com/appwrite/'
+	},
+	{
+		name: 'Youtube',
+		icon: 'youtube',
+		emailImage: PUBLIC_APP_DOMAIN + '/icons/email/youtube.png',
+		url: 'https://youtube.com/appwrite'
+	},
+	{
+		name: 'Discord',
+		icon: 'discord',
+		emailImage: PUBLIC_APP_DOMAIN + '/icons/email/discord.png',
+		url: 'https://appwrite.io/discord'
+	},
+	{
+		name: 'X',
+		icon: 'x',
+		emailImage: PUBLIC_APP_DOMAIN + '/icons/email/x.png',
+		url: 'https://x.com/appwrite'
+	}
 ];
 
 /**
@@ -70,7 +70,7 @@ export const socials = [
 
 /** @type {Config} */
 export const config = {
-    newsletterName,
-    creator,
-    socials,
+	newsletterName,
+	creator,
+	socials
 };

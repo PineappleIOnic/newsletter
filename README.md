@@ -1,38 +1,47 @@
-# sv
+# Newsletter template
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A modern template designed for newsletter a mobile-friendly interface and an integrated flow for verifying the sign-up
+emails.
 
-## Creating a project
+## Showcase
 
-If you're seeing this, you've probably already done this step. Congrats!
+A simple and sleek UI allowing users to sign up to your newsletters.
 
-```bash
-# create a new project in the current directory
-npx sv create
+## Useful links
 
-# create a new project in starter
-npx sv create starter
-```
+- Env setup: [.env.example](.env.example), rename to `.env`
+- Site Header: [src/routes/Header.svelte](src/routes/Header.svelte)
+- Site footer: [src/routes/Footer.svelte](src/routes/Footer.svelte)
+- Email template: [src/lib/server/templates/confirm.ejs](src/lib/server/templates/confirm.ejs)
+- Logo: [static/logo.svg](./static/logo.svg) and [static/favicon.png](./static/favicon.png)
+- OG image (preview thumbnail): [static/newsletter-og.png](./static/newsletter-og.png)
 
-## Developing
+## Technologies
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+We use [Svelte](https://svelte.dev/docs/svelte/overview) and [SvelteKit](https://svelte.dev/docs/kit/introduction) as a
+web framework with [TypeScript](https://www.typescriptlang.org/) codebase.
 
-```bash
-npm run dev
+CSS framework [TailwindCSS](https://tailwindcss.com/) is used for all styling needs.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+All the backend needs such as saving the newsletter sign-ups, or email verification is covered
+by [Appwrite](https://appwrite.io/).
 
-## Building
+## Tips and tricks
 
-To create a production version of your app:
+- Convert product images to `.webp` or `.avif` formats for best loading speed of your site
+- Never use images with resolution greater than 1080p
+- Before production use, connect to logging tools like [Sentry](https://sentry.io/) or analytics tool such
+  as [Plausible](https://plausible.io/) or [Google Analytics](https://marketingplatform.google.com/about/analytics/)
 
-```bash
-npm run build
-```
+## Local development
 
-You can preview the production build with `npm run preview`.
+1. Install dependencies with `npm install` (or `pnpm install` or `yarn`)
+2. Start a development server with `npm run dev` (or `pnpm dev` or `yarn dev`)
+3. Visit [localhost:5173](http://localhost:5173/)
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Deploy to production
+
+When used with Appwrite, all changes to `main` branch are automatically deployed to production.
+
+Otherwise, use `npm run build` (or `pnpm build` or `yarn build`), and deploy as Node.js server with build folder as
+`./build`.
